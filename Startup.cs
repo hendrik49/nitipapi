@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using nitipApi.DataAccess;
 using nitipApi.Repositroy;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace nitipApi
 {
@@ -22,13 +23,29 @@ namespace nitipApi
         }
 
         public IConfigurationRoot Configuration { get; }
-
+        public bool IsServerConnected(string connection)
+        {
+            using (var l_oConnection = new SqlConnection(connection))
+            {
+                try
+                {
+                    l_oConnection.Open();
+                    return true;
+                }
+                catch (SqlException)
+                {
+                    return false;
+                }
+            }
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // This method gets called by the runtime. Use this method to add services to the container.
             var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
-            services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
+            if (!IsServerConnected(connection))
+                services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
+            else
+                services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc();
             services.AddScoped<INitipRepository, NitipRepository>();
