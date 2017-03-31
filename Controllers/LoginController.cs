@@ -20,7 +20,7 @@ namespace nitipApi.LoginControllers
         [HttpGet]
         public IActionResult Get()
         {
-            var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoxLCJrZXkyIjoidGhlLXZhbHVlIn0.z4nWl_itwSsz1SbxEZkxCmm9MMkIKanFvgGz_gsWIJo";
+            var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.e30.lAes4Gu-CsBiry8GrAvBNgcmxcqGT2aS8om82SWLhKk";
             var secret = "didok49";
 
             try
@@ -51,11 +51,12 @@ namespace nitipApi.LoginControllers
                 return BadRequest();
             }
             var payload = new Dictionary<string, object>();
-            var secret = "didok49";
+            var secret = Helper.Token.ApiKey();
             var data = _userRepository.Login(item);
 
             if (data != null)
             {
+                payload.Add("id",data.Id);
                 var token = JsonWebToken.Encode(payload, secret, Jwt.JwtHashAlgorithm.HS256);
                 payload.Add("token", token);
                 payload.Add("status", true);
@@ -63,7 +64,6 @@ namespace nitipApi.LoginControllers
             else
             {
                 payload.Add("message", "username or password invalid");
-                payload.Add("data",item);
                 payload.Add("status", false);
             }
             return new ObjectResult(payload);

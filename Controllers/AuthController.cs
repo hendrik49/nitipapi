@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Jwt;
 using nitipApi.Models;
 using nitipApi.Repositroy;
 

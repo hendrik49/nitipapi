@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using nitipApi.Models;
 using nitipApi.Repositroy;
 using Jwt;
-using System.Linq;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace nitipApi.Controllers
 {
@@ -20,33 +21,32 @@ namespace nitipApi.Controllers
         public IActionResult GetAll()
         {
             var request = Request;
-            var secret = "didok49";
-            string token = "token";
             var result = new Dictionary<string, object>();
-
-            if (!request.Headers.ContainsKey("Authorization"))
-            {
-                result.Add("message","missing token");
-                result.Add("status",true);
-                return new ObjectResult(result);
-            }
-            else
-            {
-                token = request.Headers["Authorization"];
-            }
+            string data = string.Empty;
 
             try
             {
-                var data = JsonWebToken.Decode(token, secret);
-                var datanya = _nitipRepository.GetAll();
-                result.Add("data", datanya);
-                result.Add("status",true);
+                data = Helper.Token.jwtData(request);
+                JToken token = JObject.Parse(data);
+
+                if (token != null)
+                {
+                    int id = (int)token.SelectToken("id");
+                    var datanya = _nitipRepository.Find(id);
+                    result.Add("data", datanya);
+                    result.Add("status", true);
+                }
+                else
+                {
+                    result.Add("message", data);
+                    result.Add("status", false);
+                }
                 return new ObjectResult(result);
             }
-            catch (SignatureVerificationException)
+            catch (Exception)
             {
-                result.Add("message","invalid token");
-                result.Add("status",true);
+                result.Add("message", "invalid token exception");
+                result.Add("status", false);
                 return new ObjectResult(result);
             }
 

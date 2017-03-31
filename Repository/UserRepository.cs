@@ -12,9 +12,6 @@ namespace nitipApi.Repositroy
         public UserRepository(NitipContext context)
         {
             _context = context;
-
-            if( _context.Users.Count() == 0)
-                Add(new User { Name = "Item1" });
         }
 
         public IEnumerable<User> GetAll()
