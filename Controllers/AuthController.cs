@@ -18,20 +18,9 @@ namespace nitipApi.AuthControllers
 
         // GET api/Auth
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<User> GetAll()
         {
-            var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoxLCJrZXkyIjoidGhlLXZhbHVlIn0.z4nWl_itwSsz1SbxEZkxCmm9MMkIKanFvgGz_gsWIJo";
-            var secret = "didok49";
-
-            try
-            {
-                var data = JsonWebToken.Decode(token, secret);
-                return new ObjectResult(data);
-            }
-            catch (SignatureVerificationException)
-            {
-                return new ObjectResult("Invalid Token");
-            }
+            return _userRepository.GetAll();
         }
 
         // GET api/Auth/5

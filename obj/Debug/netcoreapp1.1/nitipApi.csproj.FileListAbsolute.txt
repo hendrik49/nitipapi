@@ -6,3 +6,4 @@
 /Users/didok49/Projects/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.AssemblyInfo.cs
 /Users/didok49/Projects/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.dll
 /Users/didok49/Projects/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.pdb
+/Users/didok49/Projects/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.csprojResolveAssemblyReference.cache

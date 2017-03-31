@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{8E8A4CD4-1C06-4DFC-A311-D41041BB4B3B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/NitipController.cs">
+    <Files>
+      <File FileName="Controllers/NitipController.cs" Line="13" Column="65" />
+      <File FileName="Controllers/AuthController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/LoginController.cs" Line="50" Column="14" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/didok49/Projects/nitipApi/Controllers/LoginController.cs" relfile="Controllers/LoginController.cs" line="47" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.nitipApi PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

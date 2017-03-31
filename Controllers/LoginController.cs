@@ -62,7 +62,8 @@ namespace nitipApi.LoginControllers
             }
             else
             {
-                payload.Add("token", "username or password invalid");
+                payload.Add("message", "username or password invalid");
+                payload.Add("data",item);
                 payload.Add("status", false);
             }
             return new ObjectResult(payload);

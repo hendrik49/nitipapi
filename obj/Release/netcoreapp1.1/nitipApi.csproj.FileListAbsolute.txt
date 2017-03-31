@@ -1,0 +1,8 @@
+/Users/didok49/Projects/nitipApi/bin/Release/netcoreapp1.1/nitipApi.deps.json
+/Users/didok49/Projects/nitipApi/bin/Release/netcoreapp1.1/nitipApi.runtimeconfig.json
+/Users/didok49/Projects/nitipApi/bin/Release/netcoreapp1.1/nitipApi.runtimeconfig.dev.json
+/Users/didok49/Projects/nitipApi/bin/Release/netcoreapp1.1/nitipApi.dll
+/Users/didok49/Projects/nitipApi/bin/Release/netcoreapp1.1/nitipApi.pdb
+/Users/didok49/Projects/nitipApi/obj/Release/netcoreapp1.1/nitipApi.AssemblyInfo.cs
+/Users/didok49/Projects/nitipApi/obj/Release/netcoreapp1.1/nitipApi.dll
+/Users/didok49/Projects/nitipApi/obj/Release/netcoreapp1.1/nitipApi.pdb

@@ -23,7 +23,8 @@ namespace nitipApi.Repositroy
         }
         public User Login(User user)
         {
-            return _context.Users.Where(o=>o.Name==user.Name && o.Password==user.Password).FirstOrDefault();
+            var data = _context.Users.FirstOrDefault(o=>o.UserName==user.UserName && o.Password==user.Password);
+            return data;
         }
 
         public void Add(User item)

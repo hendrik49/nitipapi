@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using nitipApi.Models;
 using nitipApi.Repositroy;
+using Jwt;
+using System.Linq;
 
 namespace nitipApi.Controllers
 {
@@ -15,9 +17,39 @@ namespace nitipApi.Controllers
             _nitipRepository = NitipRepository;
         }
         [HttpGet]
-        public IEnumerable<NitipItem> GetAll()
+        public IActionResult GetAll()
         {
-            return _nitipRepository.GetAll();
+            var request = Request;
+            var secret = "didok49";
+            string token = "token";
+            var result = new Dictionary<string, object>();
+
+            if (!request.Headers.ContainsKey("Authorization"))
+            {
+                result.Add("message","missing token");
+                result.Add("status",true);
+                return new ObjectResult(result);
+            }
+            else
+            {
+                token = request.Headers["Authorization"];
+            }
+
+            try
+            {
+                var data = JsonWebToken.Decode(token, secret);
+                var datanya = _nitipRepository.GetAll();
+                result.Add("data", datanya);
+                result.Add("status",true);
+                return new ObjectResult(result);
+            }
+            catch (SignatureVerificationException)
+            {
+                result.Add("message","invalid token");
+                result.Add("status",true);
+                return new ObjectResult(result);
+            }
+
         }
 
         [HttpGet("{id}", Name = "GetNitip")]
