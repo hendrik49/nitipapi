@@ -62,7 +62,7 @@ namespace nitipApi.Controllers
             Nitip.Name = item.Name;
 
             _nitipRepository.Update(Nitip);
-            return new ObjectResult("success update");
+            return new ObjectResult("success");
         }
 
         [HttpDelete("{id}")]
@@ -75,7 +75,7 @@ namespace nitipApi.Controllers
             }
 
             _nitipRepository.Remove(id);
-            return new ObjectResult("success delete");
+            return new ObjectResult("succes");
         }
     }
 }

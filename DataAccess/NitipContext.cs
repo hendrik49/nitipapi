@@ -11,6 +11,7 @@ namespace nitipApi.DataAccess
         }
 
         public DbSet<NitipItem> NitipItems { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }
