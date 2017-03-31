@@ -27,7 +27,6 @@ namespace nitipApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
-            // Add framework services.
             services.AddMvc();
             services.AddScoped<INitipRepository, NitipRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
