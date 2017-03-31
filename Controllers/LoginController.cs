@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Jwt;
 using nitipApi.Models;
 using nitipApi.Repositroy;
 
-namespace nitipApi.AuthControllers
+namespace nitipApi.LoginControllers
 {
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    public class LoginController : Controller
     {
         private readonly IUserRepository _userRepository;
 
-        public AuthController(IUserRepository UserRepository)
+        public LoginController(IUserRepository UserRepository)
         {
             _userRepository = UserRepository;
         }
 
-        // GET api/Auth
+        // GET api/Login
         [HttpGet]
         public IActionResult Get()
         {
@@ -34,39 +34,47 @@ namespace nitipApi.AuthControllers
             }
         }
 
-        // GET api/Auth/5
+        // GET api/Login/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
-        // POST api/Auth
+
+        // POST api/Login
         [HttpPost]
         public IActionResult Post([FromBody] User item)
         {
-            var result = new Dictionary<string, object>();
 
             if (item == null)
             {
                 return BadRequest();
             }
+            var payload = new Dictionary<string, object>();
+            var secret = "didok49";
+            var data = _userRepository.Login(item);
 
-            _userRepository.Add(item)
-            ;
-            result.Add("status", true);
-            result.Add("data", item);
-
-            return new ObjectResult(result);
+            if (data != null)
+            {
+                var token = JsonWebToken.Encode(payload, secret, Jwt.JwtHashAlgorithm.HS256);
+                payload.Add("token", token);
+                payload.Add("status", true);
+            }
+            else
+            {
+                payload.Add("token", "username or password invalid");
+                payload.Add("status", false);
+            }
+            return new ObjectResult(payload);
         }
 
-
-        // PUT api/Auth/5
+        // PUT api/Login/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/Auth/5
+        // DELETE api/Login/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
