@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using nitipApi.Models;
 using nitipApi.Repositroy;
-using Jwt;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -12,41 +11,40 @@ namespace nitipApi.Controllers
     public class NitipController : Controller
     {
         private readonly INitipRepository _nitipRepository;
+        private readonly IProductRepository _productRepository;
 
-        public NitipController(INitipRepository NitipRepository)
+        public NitipController(INitipRepository NitipRepository, IProductRepository ProductRepository)
         {
             _nitipRepository = NitipRepository;
+            _productRepository = ProductRepository;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var request = Request;
             var result = new Dictionary<string, object>();
             string data = string.Empty;
 
             try
             {
+                var request = Request;
                 data = Helper.Token.jwtData(request);
-                JToken token = JObject.Parse(data);
 
-                if (token != null)
+                if (data.Contains("id"))
                 {
+                    JToken token = JObject.Parse(data);
                     int id = (int)token.SelectToken("id");
-                    var datanya = _nitipRepository.Find(id);
-                    result.Add("data", datanya);
-                    result.Add("status", true);
+                    var datanya = _nitipRepository.FindByUser(id);
+                    result = Helper.Return.TrueReturn("message", datanya);
                 }
                 else
                 {
-                    result.Add("message", data);
-                    result.Add("status", false);
+                    result = Helper.Return.TrueReturn("message", data);
                 }
                 return new ObjectResult(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                result.Add("message", "invalid token exception");
-                result.Add("status", false);
+                result = Helper.Return.TrueReturn("message", ex.Message.ToString());
                 return new ObjectResult(result);
             }
 
@@ -70,10 +68,33 @@ namespace nitipApi.Controllers
             {
                 return BadRequest();
             }
+            var result = new Dictionary<string, object>();
+            var request = Request;
+            string data = Helper.Token.jwtData(request);
 
-            _nitipRepository.Add(item);
+            if (data.Contains("id"))
+            {
+                JToken token = JObject.Parse(data);
+                int id = (int)token.SelectToken("id");
+                item.IdUser = id;
+                item.Amount = this.Amount(item.IdProduct,item.Qty);
+                _nitipRepository.Add(item);
+                result = Helper.Return.TrueReturn("data", item);
+                return new ObjectResult(result);
+            }
+            else
+            {
+                result = Helper.Return.FalseReturn("message", "invalid user");
+                return new ObjectResult(result);
 
-            return CreatedAtRoute("GetNitip", new { id = item.Key }, item);
+            }
+        }
+
+        public decimal Amount(int IdProduct, int qty)
+        {
+            var product = _productRepository.Find(IdProduct);
+            var amount = product.Price * qty;
+            return amount;
         }
 
         [HttpPut("{id}")]

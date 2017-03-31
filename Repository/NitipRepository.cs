@@ -21,6 +21,10 @@ namespace nitipApi.Repositroy
         {
             return _context.NitipItems.ToList();
         }
+        public IEnumerable<NitipItem> FindByUser(int userid)
+        {
+            return _context.NitipItems.Where(o=>o.IdUser==userid).ToList();
+        }
 
         public void Add(NitipItem item)
         {
