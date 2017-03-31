@@ -3508,9 +3508,6 @@
           "ref/netstandard1.2/System.Threading.Timer.dll": {}
         }
       },
-      "System.Web.Http.Common/4.0.20126.16343": {
-        "type": "package"
-      },
       "System.Xml.ReaderWriter/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -9501,17 +9498,6 @@
         "system.threading.timer.nuspec"
       ]
     },
-    "System.Web.Http.Common/4.0.20126.16343": {
-      "sha512": "3tybnaxSQAWu2aLSAh+7PRZ8Cw4f/DIECPJZ5yBcnm5sQKjr95zViCasYH3p6Z1hxATSTmlecvCcvlt/FDy+8w==",
-      "type": "package",
-      "path": "system.web.http.common/4.0.20126.16343",
-      "files": [
-        "lib/net40/System.Web.Http.Common.dll",
-        "lib/net40/System.Web.Http.Common.xml",
-        "system.web.http.common.4.0.20126.16343.nupkg.sha512",
-        "system.web.http.common.nuspec"
-      ]
-    },
     "System.Xml.ReaderWriter/4.3.0": {
       "sha512": "GrprA+Z0RUXaR4N7/eW71j1rgMnEnEVlgii49GZyAjTH7uliMnrOU3HNFBr6fEDBCJCIdlVNq9hHbaDR621XBA==",
       "type": "package",
@@ -9770,8 +9756,7 @@
       "Microsoft.AspNetCore.Mvc >= 1.1.2",
       "Microsoft.EntityFrameworkCore.InMemory >= 1.1.1",
       "Microsoft.Extensions.Logging.Debug >= 1.1.1",
-      "Microsoft.NETCore.App >= 1.1.1",
-      "System.Web.Http.Common >= 4.0.20126.16343"
+      "Microsoft.NETCore.App >= 1.1.1"
     ]
   },
   "packageFolders": {
@@ -9823,10 +9808,6 @@
           "JsonWebTokens": {
             "target": "Package",
             "version": "1.3.0"
-          },
-          "System.Web.Http.Common": {
-            "target": "Package",
-            "version": "4.0.20126.16343"
           },
           "Json.NET.Web": {
             "target": "Package",

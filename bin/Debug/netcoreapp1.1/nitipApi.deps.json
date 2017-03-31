@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "d67b48b455c18dd906b563d556b6e4efca5e0167"
+    "signature": "6bd4ab62c6eba150d0ee6dc83ffb4069cb35dc37"
   },
   "compilationOptions": {
     "defines": [
@@ -29,8 +29,7 @@
           "Microsoft.AspNetCore.Mvc": "1.1.2",
           "Microsoft.EntityFrameworkCore.InMemory": "1.1.1",
           "Microsoft.Extensions.Logging.Debug": "1.1.1",
-          "Microsoft.NETCore.App": "1.1.1",
-          "System.Web.Http.Common": "4.0.20126.16343"
+          "Microsoft.NETCore.App": "1.1.1"
         },
         "runtime": {
           "nitipApi.dll": {}
@@ -1319,7 +1318,6 @@
           "lib/netstandard1.0/System.Text.Encodings.Web.dll": {}
         }
       },
-      "system.web.http.common/4.0.20126.16343": {},
       "libuv/1.9.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -3595,13 +3593,6 @@
       "sha512": "sha512-ilLTKoirqw+Mbt+6x1MOxZKEwflasdP5WNuo5m5rKSXtAqazlEDqdyBH1XbvENuDQUtKNeP48CI1dyDNlEAeOA==",
       "path": "system.text.encodings.web/4.3.0",
       "hashPath": "system.text.encodings.web.4.3.0.nupkg.sha512"
-    },
-    "system.web.http.common/4.0.20126.16343": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3tybnaxSQAWu2aLSAh+7PRZ8Cw4f/DIECPJZ5yBcnm5sQKjr95zViCasYH3p6Z1hxATSTmlecvCcvlt/FDy+8w==",
-      "path": "system.web.http.common/4.0.20126.16343",
-      "hashPath": "system.web.http.common.4.0.20126.16343.nupkg.sha512"
     },
     "libuv/1.9.1": {
       "type": "package",
