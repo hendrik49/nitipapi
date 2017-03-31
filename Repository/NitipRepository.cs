@@ -12,9 +12,6 @@ namespace nitipApi.Repositroy
         public NitipRepository(NitipContext context)
         {
             _context = context;
-
-            if( _context.NitipItems.Count() == 0)
-                Add(new NitipItem { Name = "Item1" });
         }
 
         public IEnumerable<NitipItem> GetAll()

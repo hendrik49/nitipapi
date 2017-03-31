@@ -26,7 +26,10 @@ namespace nitipApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
+            // This method gets called by the runtime. Use this method to add services to the container.
+            var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
+            services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
+
             services.AddMvc();
             services.AddScoped<INitipRepository, NitipRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
