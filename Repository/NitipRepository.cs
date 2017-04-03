@@ -20,13 +20,35 @@ namespace nitipApi.Repositroy
         }
         public IEnumerable<NitipItem> FindByUser(int userid)
         {
-            return _context.NitipItems.Where(o=>o.IdUser==userid).ToList();
+            return _context.NitipItems.Where(o => o.IdUser == userid).ToList();
         }
 
-        public void Add(NitipItem item)
-        {
+
+        public void Add(NitipItem item, User user)
+        {   
+            item.IdUser= (int)user.Id;
+            item.Amount = this.Amount(item);
             _context.NitipItems.Add(item);
             _context.SaveChanges();
+        }
+        public void Add(NitipItem item)
+        {   
+            _context.NitipItems.Add(item);
+            _context.SaveChanges();
+        }
+        public decimal Amount(NitipItem item)
+        {
+            var product = _context.Products.Find(item.IdProduct);
+            if (product != null)
+            {
+                var amount = product.Price * item.Qty;
+                return amount;
+            }
+            else
+            {
+                return 0;
+
+            }
         }
 
         public NitipItem Find(long key)

@@ -12,8 +12,8 @@ namespace nitipApi.Models
         public string Description { get; set; }
         public int Qty { get; set; }
         public decimal Amount { get; set; }
-        public int IdUser { get; set; }
-        public int IdProduct { get; set; }
+        public long IdUser { get; set; }
+        public long IdProduct { get; set; }
         public bool IsComplete { get; set; }
     }
 }

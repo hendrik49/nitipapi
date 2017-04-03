@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using nitipApi.Models;
 using nitipApi.DataAccess;
+using Newtonsoft.Json.Linq;
 
 namespace nitipApi.Repositroy
 {
@@ -20,8 +21,22 @@ namespace nitipApi.Repositroy
         }
         public User Login(User user)
         {
-            var data = _context.Users.FirstOrDefault(o=>o.UserName==user.UserName && o.Password==user.Password);
+            var data = _context.Users.FirstOrDefault(o => o.UserName == user.UserName && o.Password == user.Password);
             return data;
+        }
+        public User Find(string jwtstring)
+        {
+            if (jwtstring.Contains("id"))
+            {
+                JToken token = JObject.Parse(jwtstring);
+                long id = (long)token.SelectToken("id");
+                var data = _context.Users.Find(id);
+                return data;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void Add(User item)

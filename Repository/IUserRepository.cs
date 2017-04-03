@@ -9,6 +9,7 @@ namespace nitipApi.Repositroy
         IEnumerable<User> GetAll();
         User Login(User user);
         User Find(long key);
+        User Find(string jwtstring);
         void Remove(long key);
         void Update(User item);
     }

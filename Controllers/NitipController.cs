@@ -10,13 +10,15 @@ namespace nitipApi.Controllers
     [Route("api/[controller]")]
     public class NitipController : Controller
     {
-        private readonly INitipRepository _nitipRepository;
-        private readonly IProductRepository _productRepository;
+        private INitipRepository _nitipRepository;
+        private IProductRepository _productRepository;
+        private IUserRepository _userRepository;
 
-        public NitipController(INitipRepository NitipRepository, IProductRepository ProductRepository)
+        public NitipController(INitipRepository NitipRepository, IProductRepository ProductRepository, IUserRepository userRepo)
         {
             _nitipRepository = NitipRepository;
             _productRepository = ProductRepository;
+            _userRepository = userRepo;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -68,33 +70,21 @@ namespace nitipApi.Controllers
             {
                 return BadRequest();
             }
-            var result = new Dictionary<string, object>();
             var request = Request;
             string data = Helper.Token.jwtData(request);
-
-            if (data.Contains("id"))
+            var user = _userRepository.Find(data);
+            if (data.Contains("id") && user != null && item != null)
             {
-                JToken token = JObject.Parse(data);
-                int id = (int)token.SelectToken("id");
-                item.IdUser = id;
-                item.Amount = this.Amount(item.IdProduct,item.Qty);
-                _nitipRepository.Add(item);
-                result = Helper.Return.TrueReturn("data", item);
+                _nitipRepository.Add(item, user);
+                var result = Helper.Return.TrueReturn("data", item);
                 return new ObjectResult(result);
             }
             else
             {
-                result = Helper.Return.FalseReturn("message", "invalid user");
+                var result = Helper.Return.FalseReturn("message", data);
+                result = Helper.Return.FalseReturn("data", Json(item));
                 return new ObjectResult(result);
-
             }
-        }
-
-        public decimal Amount(int IdProduct, int qty)
-        {
-            var product = _productRepository.Find(IdProduct);
-            var amount = product.Price * qty;
-            return amount;
         }
 
         [HttpPut("{id}")]
