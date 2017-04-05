@@ -1,9 +1,11 @@
 ﻿<Properties StartupConfiguration="{8E8A4CD4-1C06-4DFC-A311-D41041BB4B3B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/NitipController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
     <Files>
-      <File FileName="Controllers/NitipController.cs" Line="13" Column="65" />
-      <File FileName="Controllers/AuthController.cs" Line="1" Column="1" />
-      <File FileName="Controllers/LoginController.cs" Line="50" Column="14" />
+      <File FileName="Startup.cs" Line="45" Column="48" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="Helper/Return.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

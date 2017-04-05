@@ -8,7 +8,6 @@ namespace nitipApi.Helper
         {
             var result = new Dictionary<string, object>();
             result.Add("status", true);
-            result.Add("code", 200);
             result.Add(key, data);
             return result;
         }
@@ -17,7 +16,6 @@ namespace nitipApi.Helper
         {
             var result = new Dictionary<string, object>();
             result.Add("status", false);
-            result.Add("code", 500);
             result.Add(key, data);
             return result;
         }
