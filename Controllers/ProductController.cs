@@ -66,10 +66,28 @@ namespace nitipApi.Controllers
             {
                 return BadRequest();
             }
+            var request = Request;
+            var result = new Dictionary<string, object>();
 
-            _nitipRepository.Add(item);
-
-            return CreatedAtRoute("GetProduct", new { id = item.Id }, item);
+            try
+            {
+                var user = _userRepository.jwtData(request);
+                if (user != null)
+                {
+                    _nitipRepository.Add(item);
+                    return CreatedAtRoute("GetProduct", new { id = item.Id }, item);
+                }
+                else
+                {
+                    result = Helper.Return.FalseReturn("message", "Invalid Token");
+                    return new ObjectResult(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = Helper.Return.FalseReturn("message", ex.Message.ToString());
+                return new ObjectResult(result);
+            }
         }
 
         [HttpPut("{id}")]
