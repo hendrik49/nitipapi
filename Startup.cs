@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using MySql.Data.EntityFrameworkCore;
 using MySQL.Data.EntityFrameworkCore;
 using MySQL.Data.EntityFrameworkCore.Extensions;
+using MySql.Data.MySqlClient;
 
 namespace nitipApi
 {
@@ -42,18 +43,35 @@ namespace nitipApi
                 }
             }
         }
+
+        public bool IsMySQLConnected(string connection)
+        {
+            using (var l_oConnection = new MySqlConnection(connection))
+            {
+                try
+                {
+                    l_oConnection.Open();
+                    return true;
+                }
+                catch (SqlException)
+                {
+                    return false;
+                }
+            }
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
             var mysqlconnection = @"server=localhost; port=3306;Database=NitipDB;User ID=root;Password=password;sslmode=none;";
 
-            //if (IsServerConnected(connection))
-                //services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
-            //else if (IsServerConnected(mysqlconnection))
+            if (IsServerConnected(connection))
+                services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
+            else if (IsMySQLConnected(mysqlconnection))
                 services.AddDbContext<NitipContext>(options => options.UseMySQL(mysqlconnection));
-            //else
-                //services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
+            else
+                services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
 
 
             services.AddMvc();
