@@ -15,7 +15,10 @@ using MySql.Data.MySqlClient;
 namespace nitipApi
 {
     public class Startup
-    {
+    {   
+        string connectionSQLServer= string.Empty;
+        string connectionMySQL= string.Empty;
+
         public Startup(IHostingEnvironment env)
         {
 
@@ -63,13 +66,16 @@ namespace nitipApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
-            var mysqlconnection = @"server=localhost; port=3306;Database=NitipDB;User ID=root;Password=password;sslmode=none;";
+            //var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
+            //var mysqlconnection = @"server=localhost; port=3306;Database=NitipDB;User ID=root;Password=password;sslmode=none;";
 
-            if (IsServerConnected(connection))
-                services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
-            else if (IsMySQLConnected(mysqlconnection))
-                services.AddDbContext<NitipContext>(options => options.UseMySQL(mysqlconnection));
+            connectionSQLServer = Configuration.GetConnectionString("SQLServer");
+            connectionMySQL = Configuration.GetConnectionString("MySQL");
+
+            if (IsServerConnected(connectionSQLServer))
+                services.AddDbContext<NitipContext>(options => options.UseSqlServer(connectionSQLServer));
+            else if (IsMySQLConnected(connectionMySQL))
+                services.AddDbContext<NitipContext>(options => options.UseMySQL(connectionMySQL));
             else
                 services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
 
