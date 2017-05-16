@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using nitipApi.Models;
 
 namespace nitipApi.Repositroy
@@ -12,5 +13,6 @@ namespace nitipApi.Repositroy
         User Find(string jwtstring);
         void Remove(int key);
         void Update(User item);
+        User jwtData(HttpRequest request);
     }
 }

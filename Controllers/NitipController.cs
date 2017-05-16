@@ -4,6 +4,7 @@ using nitipApi.Models;
 using nitipApi.Repositroy;
 using Newtonsoft.Json.Linq;
 using System;
+using nitipApi.Helper;
 
 namespace nitipApi.Controllers
 {
@@ -13,7 +14,6 @@ namespace nitipApi.Controllers
         private INitipRepository _nitipRepository;
         private IProductRepository _productRepository;
         private IUserRepository _userRepository;
-
         public NitipController(INitipRepository NitipRepository, IProductRepository ProductRepository, IUserRepository userRepo)
         {
             _nitipRepository = NitipRepository;
@@ -24,18 +24,15 @@ namespace nitipApi.Controllers
         public IActionResult GetAll()
         {
             var result = new Dictionary<string, object>();
-            string data = string.Empty;
 
             try
             {
                 var request = Request;
-                data = Helper.Token.jwtData(request);
+                var data = _userRepository.jwtData(request);
 
-                if (data.Contains("id"))
+                if (data!=null)
                 {
-                    JToken token = JObject.Parse(data);
-                    int id = (int)token.SelectToken("id");
-                    var datanya = _nitipRepository.FindByUser(id);
+                    var datanya = _nitipRepository.FindByUser(data.Id);
                     result = Helper.Return.TrueReturn("message", datanya);
                 }
                 else
@@ -46,7 +43,7 @@ namespace nitipApi.Controllers
             }
             catch (Exception ex)
             {
-                result = Helper.Return.TrueReturn("message", ex.Message.ToString());
+                result = Helper.Return.FalseReturn("message", ex.Message.ToString());
                 return new ObjectResult(result);
             }
 
@@ -71,9 +68,8 @@ namespace nitipApi.Controllers
                 return BadRequest();
             }
             var request = Request;
-            string data = Helper.Token.jwtData(request);
-            var user = _userRepository.Find(data);
-            if (data.Contains("id") && user != null && item != null)
+            var user = _userRepository.jwtData(request);
+            if (user!=null)
             {
                 _nitipRepository.Add(item, user);
                 var result = Helper.Return.TrueReturn("data", item);
@@ -81,8 +77,7 @@ namespace nitipApi.Controllers
             }
             else
             {
-                var result = Helper.Return.FalseReturn("message", data);
-                result = Helper.Return.FalseReturn("data", Json(item));
+                var result = Helper.Return.FalseReturn("message", "");
                 return new ObjectResult(result);
             }
         }

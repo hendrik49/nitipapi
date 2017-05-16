@@ -3,6 +3,8 @@ using System.Linq;
 using nitipApi.Models;
 using nitipApi.DataAccess;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Http;
+using Jwt;
 
 namespace nitipApi.Repositroy
 {
@@ -62,5 +64,46 @@ namespace nitipApi.Repositroy
             _context.Users.Update(item);
             _context.SaveChanges();
         }
+        public User jwtData(HttpRequest request)
+        {
+
+            var secret = string.Empty;
+            string token = string.Empty;
+            var result = new Dictionary<string, object>();
+
+            if (!request.Headers.ContainsKey("Authorization"))
+            {
+                return null;
+            }
+            else if (!request.Headers.ContainsKey("API-Key"))
+            {
+                return null;
+            }
+            else
+            {
+                if (request.Headers["API-Key"].Equals(Helper.Token.ApiKey()))
+                {
+                    token = request.Headers["Authorization"].FirstOrDefault();
+                    secret = request.Headers["API-Key"].FirstOrDefault();
+                    try
+                    {
+                        var data = JsonWebToken.Decode(token, secret);
+                        JToken tokenData = JObject.Parse(data);
+                        int id = (int)tokenData.SelectToken("id");
+                        var user = _context.Users.Find(id);
+                        return user;
+                    }
+                    catch (SignatureVerificationException)
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
     }
 }

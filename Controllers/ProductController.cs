@@ -4,6 +4,7 @@ using nitipApi.Models;
 using nitipApi.Repositroy;
 using Newtonsoft.Json.Linq;
 using System;
+using nitipApi.Helper;
 
 namespace nitipApi.Controllers
 {
@@ -11,31 +12,31 @@ namespace nitipApi.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _nitipRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ProductController(IProductRepository ProductRepository)
+        public ProductController(IProductRepository ProductRepository, IUserRepository UserRepository)
         {
             _nitipRepository = ProductRepository;
+            _userRepository = UserRepository;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
             var request = Request;
             var result = new Dictionary<string, object>();
-            string data = string.Empty;
 
             try
             {
-                data = Helper.Token.jwtData(request);
+                var user = _userRepository.jwtData(request);
 
-                if (data.Contains("id"))
+                if (user != null)
                 {
-                    JToken token = JObject.Parse(data);
                     var datanya = _nitipRepository.GetAll();
                     result = Helper.Return.TrueReturn("data", datanya);
                 }
                 else
                 {
-                    result = Helper.Return.FalseReturn("message", "invalid user");
+                    result = Helper.Return.FalseReturn("data", "invalid token");
                 }
                 return new ObjectResult(result);
             }
