@@ -9,8 +9,8 @@ namespace nitipApi.Repositroy
         void Add(NitipItem item, User user);
         IEnumerable<NitipItem> GetAll();
         IEnumerable<NitipItem> FindByUser(int id);
-        NitipItem Find(long key);
-        void Remove(long key);
+        NitipItem Find(int key);
+        void Remove(int key);
         void Update(NitipItem item);
     }
 }

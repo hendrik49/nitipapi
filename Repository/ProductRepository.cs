@@ -25,12 +25,12 @@ namespace nitipApi.Repositroy
             _context.SaveChanges();
         }
 
-        public Product Find(long key)
+        public Product Find(int key)
         {
             return _context.Products.FirstOrDefault(t => t.Id == key);
         }
 
-        public void Remove(long key)
+        public void Remove(int key)
         {
             var entity = _context.Products.First(t => t.Id == key);
             _context.Products.Remove(entity);

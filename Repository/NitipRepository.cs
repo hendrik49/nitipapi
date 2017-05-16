@@ -51,14 +51,14 @@ namespace nitipApi.Repositroy
             }
         }
 
-        public NitipItem Find(long key)
+        public NitipItem Find(int key)
         {
-            return _context.NitipItems.FirstOrDefault(t => t.Key == key);
+            return _context.NitipItems.FirstOrDefault(t => t.Id == key);
         }
 
-        public void Remove(long key)
+        public void Remove(int key)
         {
-            var entity = _context.NitipItems.First(t => t.Key == key);
+            var entity = _context.NitipItems.First(t => t.Id == key);
             _context.NitipItems.Remove(entity);
             _context.SaveChanges();
         }

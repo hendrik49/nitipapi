@@ -7,8 +7,8 @@ namespace nitipApi.Repositroy
     {
         void Add(Product product);
         IEnumerable<Product> GetAll();
-        Product Find(long key);
-        void Remove(long key);
+        Product Find(int key);
+        void Remove(int key);
         void Update(Product product);
     }
 }

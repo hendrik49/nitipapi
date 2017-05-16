@@ -7,6 +7,9 @@ using nitipApi.DataAccess;
 using nitipApi.Repositroy;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using MySql.Data.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace nitipApi
 {
@@ -14,6 +17,7 @@ namespace nitipApi
     {
         public Startup(IHostingEnvironment env)
         {
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -42,10 +46,15 @@ namespace nitipApi
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = @"Server=localhost,1433;Database=NitipDB; User ID=sa;Password=Hendrik49;MultipleActiveResultSets=true";
-            if (!IsServerConnected(connection))
-                services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
-            else
-                services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
+            var mysqlconnection = @"server=localhost; port=3306;Database=NitipDB;User ID=root;Password=password;sslmode=none;";
+
+            //if (IsServerConnected(connection))
+                //services.AddDbContext<NitipContext>(options => options.UseSqlServer(connection));
+            //else if (IsServerConnected(mysqlconnection))
+                services.AddDbContext<NitipContext>(options => options.UseMySQL(mysqlconnection));
+            //else
+                //services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
+
 
             services.AddMvc();
             services.AddScoped<INitipRepository, NitipRepository>();

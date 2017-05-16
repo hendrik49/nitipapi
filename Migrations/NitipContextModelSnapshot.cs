@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using nitipApi.DataAccess;
 
 namespace nitipApi.Migrations
@@ -16,7 +18,7 @@ namespace nitipApi.Migrations
 
             modelBuilder.Entity("nitipApi.Models.NitipItem", b =>
                 {
-                    b.Property<long>("Key")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
@@ -33,14 +35,14 @@ namespace nitipApi.Migrations
 
                     b.Property<int>("Qty");
 
-                    b.HasKey("Key");
+                    b.HasKey("Id");
 
                     b.ToTable("NitipItems");
                 });
 
             modelBuilder.Entity("nitipApi.Models.Product", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
@@ -56,7 +58,7 @@ namespace nitipApi.Migrations
 
             modelBuilder.Entity("nitipApi.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");

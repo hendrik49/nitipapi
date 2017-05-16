@@ -53,7 +53,7 @@ namespace nitipApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetNitip")]
-        public IActionResult GetById(long id)
+        public IActionResult GetById(int id)
         {
             var item = _nitipRepository.Find(id);
             if (item == null)
@@ -88,9 +88,9 @@ namespace nitipApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] NitipItem item)
+        public IActionResult Update(int id, [FromBody] NitipItem item)
         {
-            if (item == null || item.Key != id)
+            if (item == null || item.Id != id)
             {
                 return BadRequest();
             }
@@ -109,7 +109,7 @@ namespace nitipApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public IActionResult Delete(int id)
         {
             var todo = _nitipRepository.Find(id);
             if (todo == null)

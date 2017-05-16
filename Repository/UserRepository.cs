@@ -45,12 +45,12 @@ namespace nitipApi.Repositroy
             _context.SaveChanges();
         }
 
-        public User Find(long key)
+        public User Find(int key)
         {
             return _context.Users.FirstOrDefault(t => t.Id == key);
         }
 
-        public void Remove(long key)
+        public void Remove(int key)
         {
             var entity = _context.Users.First(t => t.Id == key);
             _context.Users.Remove(entity);
