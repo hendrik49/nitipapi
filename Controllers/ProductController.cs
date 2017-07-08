@@ -27,7 +27,7 @@ namespace nitipApi.Controllers
 
             try
             {
-                var user = _userRepository.jwtData(request);
+                var user = _userRepository.jwtData(request);//jwt
 
                 if (user != null)
                 {

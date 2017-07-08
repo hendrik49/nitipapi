@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Jwt;
 using nitipApi.Models;
 using nitipApi.Repositroy;
+using System;
 
 namespace nitipApi.LoginControllers
 {
@@ -58,7 +59,15 @@ namespace nitipApi.LoginControllers
             {
                 payload.Add("id",data.Id);
                 var token = JsonWebToken.Encode(payload, secret, Jwt.JwtHashAlgorithm.HS256);
+                DateTime tgllahir= new DateTime(1991,01,01);                
+                DateTime tglskrg=DateTime.Now;
+
+                var umur1 = _userRepository.umur(tgllahir);
+                var umur2 = _userRepository.umur(tgllahir, tglskrg);
+
                 payload.Add("token", token);
+                payload.Add("umur1", umur1);
+                payload.Add("umur2", umur2);
                 payload.Add("status", true);
             }
             else

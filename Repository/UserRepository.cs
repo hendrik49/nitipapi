@@ -5,6 +5,7 @@ using nitipApi.DataAccess;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Http;
 using Jwt;
+using System;
 
 namespace nitipApi.Repositroy
 {
@@ -16,7 +17,14 @@ namespace nitipApi.Repositroy
         {
             _context = context;
         }
-
+        
+        public int umur(DateTime tgllahir, DateTime now){            
+            return now.Year-tgllahir.Year;
+        }
+        public int umur(DateTime tgllahir){            
+            return DateTime.Now.Year-tgllahir.Year;
+        }
+        
         public IEnumerable<User> GetAll()
         {
             return _context.Users.ToList();
