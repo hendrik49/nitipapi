@@ -74,11 +74,8 @@ namespace nitipApi
 
             if (IsServerConnected(connectionSQLServer))
                 services.AddDbContext<NitipContext>(options => options.UseSqlServer(connectionSQLServer));
-            else if (IsMySQLConnected(connectionMySQL))
+            else 
                 services.AddDbContext<NitipContext>(options => options.UseMySQL(connectionMySQL));
-            else
-                services.AddDbContext<NitipContext>(opt => opt.UseInMemoryDatabase());
-
 
             services.AddMvc();
             services.AddScoped<INitipRepository, NitipRepository>();
@@ -89,10 +86,10 @@ namespace nitipApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
-            app.UseMvc();
+            //app.UseMvc();
         }
     }
 }

@@ -8,7 +8,7 @@ using nitipApi.Helper;
 
 namespace nitipApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/nitip")]
     public class NitipController : Controller
     {
         private INitipRepository _nitipRepository;

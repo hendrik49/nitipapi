@@ -8,7 +8,7 @@ using nitipApi.Helper;
 
 namespace nitipApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/products")]
     public class ProductController : Controller
     {
         private readonly IProductRepository _nitipRepository;

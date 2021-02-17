@@ -15,3 +15,15 @@
 /Users/didok49/Projects/netcore/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.AssemblyInfo.cs
 /Users/didok49/Projects/netcore/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.dll
 /Users/didok49/Projects/netcore/nitipApi/obj/Debug/netcoreapp1.1/nitipApi.pdb
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/nitipApi.deps.json
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/nitipApi.runtimeconfig.json
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/nitipApi.runtimeconfig.dev.json
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/nitipApi.dll
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/nitipApi.pdb
+/Applications/Ampps/www/nitipapi/obj/Debug/netcoreapp1.1/nitipApi.AssemblyInfoInputs.cache
+/Applications/Ampps/www/nitipapi/obj/Debug/netcoreapp1.1/nitipApi.AssemblyInfo.cs
+/Applications/Ampps/www/nitipapi/obj/Debug/netcoreapp1.1/nitipApi.dll
+/Applications/Ampps/www/nitipapi/obj/Debug/netcoreapp1.1/nitipApi.pdb
+/Applications/Ampps/www/nitipapi/obj/Debug/netcoreapp1.1/nitipApi.csprojAssemblyReference.cache
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/appsettings.Development.json
+/Applications/Ampps/www/nitipapi/bin/Debug/netcoreapp1.1/appsettings.json

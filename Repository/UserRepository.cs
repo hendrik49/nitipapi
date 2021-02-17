@@ -17,14 +17,16 @@ namespace nitipApi.Repositroy
         {
             _context = context;
         }
-        
-        public int umur(DateTime tgllahir, DateTime now){            
-            return now.Year-tgllahir.Year;
+
+        public int umur(DateTime tgllahir, DateTime now)
+        {
+            return now.Year - tgllahir.Year;
         }
-        public int umur(DateTime tgllahir){            
-            return DateTime.Now.Year-tgllahir.Year;
+        public int umur(DateTime tgllahir)
+        {
+            return DateTime.Now.Year - tgllahir.Year;
         }
-        
+
         public IEnumerable<User> GetAll()
         {
             return _context.Users.ToList();
@@ -75,7 +77,7 @@ namespace nitipApi.Repositroy
         public User jwtData(HttpRequest request)
         {
 
-            var secret = string.Empty;
+            var secret = "didok49";
             string token = string.Empty;
             var result = new Dictionary<string, object>();
 
@@ -83,30 +85,18 @@ namespace nitipApi.Repositroy
             {
                 return null;
             }
-            else if (!request.Headers.ContainsKey("API-Key"))
-            {
-                return null;
-            }
             else
             {
-                if (request.Headers["API-Key"].Equals(Helper.Token.ApiKey()))
+                token = request.Headers["Authorization"].FirstOrDefault();
+                try
                 {
-                    token = request.Headers["Authorization"].FirstOrDefault();
-                    secret = request.Headers["API-Key"].FirstOrDefault();
-                    try
-                    {
-                        var data = JsonWebToken.Decode(token, secret);
-                        JToken tokenData = JObject.Parse(data);
-                        int id = (int)tokenData.SelectToken("id");
-                        var user = _context.Users.Find(id);
-                        return user;
-                    }
-                    catch (SignatureVerificationException)
-                    {
-                        return null;
-                    }
+                    var data = JsonWebToken.Decode(token, secret);
+                    JToken tokenData = JObject.Parse(data);
+                    int id = (int)tokenData.SelectToken("id");
+                    var user = _context.Users.Find(id);
+                    return user;
                 }
-                else
+                catch (SignatureVerificationException ex)
                 {
                     return null;
                 }
